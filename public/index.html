@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black Coffee Skyline - SoHo/Coffeehouse</title>
+<style>
+  :root { --blue:#1c2fd1; --deep:#0a1a9e; --peri:#8c9cff; --mist:#dfe6ff; --paper:#f7f8fb; --pink:#f4a9d8; --hot:#ff4fa3; --yel:#ffe84a; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--deep);
+    font: 15px/1.6 "Courier New", Courier, monospace;
+    background:
+      linear-gradient(180deg, #7f8dff 0, #aab6ff 260px, var(--paper) 760px),
+      var(--paper);
+    background-attachment: scroll;
+  }
+  /* graph-paper grid fading in lower down */
+  body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(rgba(28,47,209,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(28,47,209,.28) 1px, transparent 1px);
+    background-size: 32px 32px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 16px 16px 48px; }
+  a, a:visited { color: var(--blue); font-weight: 700; }
+  a:hover { background: var(--blue); color: #fff; text-decoration: none; }
+
+  /* masthead: pixel-edged high-contrast serif, tight leading, pure cobalt */
+  .mast { padding-top: 12px; text-align: center; }
+  .mast .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
+  h1 { margin: 0; font: 900 clamp(1.6rem, 6vw, 2.4rem)/1 "Bodoni 72", Didot, Georgia, serif; color: #0a22ff; letter-spacing: -1px; }
+  h1 canvas { display: none; image-rendering: pixelated; max-width: 100%; height: auto; }
+  h1.px canvas { display: block; }
+  h1.px .t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .pill { position: relative; margin: 10px 0 8px; padding: 4px 16px; border: 2px solid #0a22ff; border-radius: 40px; color: #0a22ff; background: rgba(255,255,255,.55);
+    font: italic 700 .85rem "Courier New", monospace; letter-spacing: .12em; text-transform: uppercase; transform: scaleX(.92); transform-origin: center; }
+  .pill::before, .pill::after { content: ""; position: absolute; left: 14px; right: 14px; height: 3px; background: repeating-linear-gradient(90deg, #0a22ff 0 6px, transparent 6px 9px); }
+  .pill::before { top: -7px; } .pill::after { bottom: -7px; }
+  .chev { height: 20px; }
+  .url { margin-top: 6px; font-size: .82rem; word-break: break-all; }
+  .url b { background: #fff; border: 2px solid var(--blue); padding: 2px 8px; font-weight: 700; }
+
+  /* the double-frame "window" panel */
+  .win { background: var(--mist); border: 3px solid var(--blue); box-shadow: 0 0 0 3px var(--mist), 0 0 0 6px var(--blue), 8px 10px 0 6px rgba(10,26,158,.25); margin: 28px 0; }
+  .bar { display: flex; justify-content: space-between; align-items: center; background: var(--blue); color: #fff; padding: 3px 10px; font: 700 .8rem "Courier New", monospace; letter-spacing: .08em; }
+  .bar .hearts img { width: 11px; height: auto; margin-left: 3px; filter: brightness(0) invert(1); }
+  .bar .x { margin-left: 12px; }
+  .body { padding: 18px; background: linear-gradient(180deg, #c9d2ff, var(--mist)); }
+  .body p { margin: 0 0 10px; }
+
+  /* hero */
+  .hero { text-align: center; position: relative; }
+  .hero .mon { width: min(300px, 70%); height: auto; }
+  .spark { position: absolute; width: 18px; }
+  .heart { position: absolute; width: 44px; }
+  .start { display: block; margin: -22px auto 0; width: min(380px, 92%); padding: 14px; text-align: center; background: #fff; border: 3px solid var(--blue);
+    box-shadow: inset 0 0 0 3px var(--mist), inset 0 0 0 5px var(--blue); font: 700 1.3rem "Courier New", monospace; letter-spacing: .06em; text-decoration: none; color: var(--deep); position: relative; }
+  .start:hover { background: var(--yel); color: var(--deep); }
+  .start::after { content: "\25B6"; margin-left: 8px; font-size: .9rem; }
+
+  /* agenda */
+  .agenda { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .agenda h2, .win h2 { font: 700 1.6rem "Courier New", monospace; color: var(--blue); margin: 0 0 8px; letter-spacing: .04em; }
+  .agenda h2::after { content: " >>"; }
+  ol.menu { list-style: none; margin: 0; padding: 0; counter-reset: n; }
+  ol.menu li { counter-increment: n; padding: 6px 0; border-bottom: 2px dotted var(--peri); }
+  ol.menu li::before { content: counter(n); display: inline-block; width: 1.6em; font-weight: 700; color: var(--hot); }
+
+  /* three numbered cards */
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .tile { border: 3px solid var(--blue); background: #b9c4ff; padding: 10px; box-shadow: inset 0 0 0 3px var(--mist); }
+  .tile .no { font: 900 1.4rem Georgia, serif; color: var(--blue); }
+  .tile .pic { height: 112px; margin: 6px 0 10px; border: 2px solid var(--blue); display: grid; place-items: center;
+    background: radial-gradient(circle, rgba(28,47,209,.25) 1px, transparent 1.5px) 0 0/8px 8px, linear-gradient(180deg, #e9edff, #cdd6ff); }
+  .tile .pic img { width: 96px; height: 96px; image-rendering: pixelated; }
+  ol.menu li img { width: 22px; height: 22px; vertical-align: middle; margin-right: 8px; image-rendering: pixelated; }
+  .tile h3 { margin: 0 0 4px; font: 700 1rem "Courier New", monospace; color: var(--deep); }
+  .tile p { margin: 0; font-size: .82rem; }
+  .tile small { display: block; margin-top: 8px; font-size: .7rem; opacity: .75; }
+
+  /* terminal-blue screen */
+  .crt { background: var(--blue); color: var(--yel); padding: 14px 16px; border: 3px solid var(--deep); font-size: .95rem; }
+  .crt .cur { animation: blink 1s steps(2, start) infinite; }
+  @keyframes blink { to { visibility: hidden; } }
+
+  .stripe { height: 18px; border: 2px solid var(--blue); background: repeating-linear-gradient(115deg, var(--blue) 0 6px, transparent 6px 12px); margin: 20px auto; width: 60%; }
+  .check { height: 32px; background: url(images/checker.svg) 0 0/32px 32px; width: 96px; margin: 16px 0 0; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+  .badge { background: #fff; border: 2px solid var(--blue); padding: 3px 10px; font-size: .72rem; font-weight: 700; }
+  .counter { background: var(--blue); color: var(--yel); padding: 0 6px; letter-spacing: .2em; }
+  footer { text-align: center; font-size: .75rem; margin-top: 24px; word-break: break-all; }
+
+  @media (max-width: 640px) { .agenda { grid-template-columns: 1fr; } .trio { grid-template-columns: 1fr; } .heart, .spark.hide-s { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .crt .cur { animation: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="row">
+      <h1 id="ttl"><span class="t">Black Coffee Skyline</span><canvas id="ttlc" aria-hidden="true"></canvas></h1>
+      <img class="chev" src="images/chevrons.svg" alt="">
+    </div>
+    <div class="row" style="margin-top:14px"><div class="pill">SoHo / Coffeehouse</div></div>
+    <div class="url"><b>https://geocities.restorativland.org/SoHo/Coffeehouse/</b></div>
+  </header>
+
+  <!-- HERO -->
+  <div class="win">
+    <div class="bar"><span>welcome.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body hero">
+      <img class="spark" style="left:6%;top:14%" src="images/sparkle.svg" alt="">
+      <img class="spark" style="left:18%;top:62%" src="images/sparkle.svg" alt="">
+      <img class="spark hide-s" style="right:8%;top:50%" src="images/sparkle.svg" alt="">
+      <img class="heart" style="left:7%;top:34%" src="images/heart.svg" alt="">
+      <img class="heart" style="right:7%;top:62%" src="images/heart.svg" alt="">
+      <img class="mon" src="images/monitor.svg" alt="A pink retro computer monitor with a blue screen that says NYC plus JAVA">
+      <a class="start" href="#menu">Press Start!</a>
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="win" id="menu">
+    <div class="bar"><span>readme.txt</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body agenda">
+      <div>
+        <h2>Menu</h2>
+        <ol class="menu">
+          <li><img src="images/icon-soho.svg" alt=""><a href="#nyc">New York City</a></li>
+          <li><img src="images/icon-mug.svg" alt=""><a href="#coffee">Coffee</a></li>
+          <li><img src="images/icon-bean.svg" alt=""><a href="#meet">Where they meet</a></li>
+          <li><img src="images/icon-grid.svg" alt=""><a href="#under">Under construction</a></li>
+        </ol>
+      </div>
+      <div>
+        <p>Hi!! Welcome to my little corner of the Web. I just got my own space in SoHo and I am filling it with the two things I think about most: <b>new york city</b> and <b>coffee</b>.</p>
+        <p>I type this at 2am on a 28.8 modem, so please be patient with me. Hand-coded in Notepad. No frames, no Java, no sound.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NYC -->
+  <div class="win" id="nyc">
+    <div class="bar"><span>new_york_city.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <h2>01 &nbsp; NYC</h2>
+      <div class="trio">
+        <div class="tile"><div class="no">01</div><div class="pic"><img src="images/icon-grid.svg" alt=""></div><h3>The Grid</h3><p>Walk uptown, walk crosstown, and you never get lost. Mostly.</p><small>Last modified: 1997-11-02</small></div>
+        <div class="tile"><div class="no">02</div><div class="pic"><img src="images/icon-soho.svg" alt=""></div><h3>Cast-Iron Streets</h3><p>Old warehouses, big windows, and fire escapes that look great in black and white.</p><small>Last modified: 1997-10-19</small></div>
+        <div class="tile"><div class="no">03</div><div class="pic"><img src="images/icon-token.svg" alt=""></div><h3>The Subway</h3><p>Token in, turnstile clunk, and the whole city opens up for a buck and a half.</p><small>Last modified: 1997-09-30</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COFFEE -->
+  <div class="win" id="coffee">
+    <div class="bar"><span>coffee.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <h2>02 &nbsp; JAVA</h2>
+      <div class="trio">
+        <div class="tile"><div class="no">01</div><div class="pic"><img src="images/icon-mug.svg" alt=""></div><h3>My Perfect Cup</h3><p>A little too hot, in a thick white mug. Bonus points if the counter guy remembers me.</p><small>Last modified: 1997-11-14</small></div>
+        <div class="tile"><div class="no">02</div><div class="pic"><img src="images/icon-espresso.svg" alt=""></div><h3>Espresso Math</h3><p>One shot is a thought. Two shots is a plan. Three is a website.</p><small>Last modified: 1997-10-27</small></div>
+        <div class="tile"><div class="no">03</div><div class="pic"><img src="images/icon-bean.svg" alt=""></div><h3>Bean Notes</h3><p>Chocolate, burnt toast, a little smoke. I am still learning the words.</p><small>Last modified: 1997-12-01</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEET -->
+  <div class="win" id="meet">
+    <div class="bar"><span>corner_table.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <div class="crt">
+        &gt; LOADING CORNER TABLE...<br>
+        &gt; window seat. wobbly table. notebook out.<br>
+        &gt; the city runs on caffeine and the best hours<br>
+        &gt; are after midnight, when steam on the glass<br>
+        &gt; makes the streetlights fuzzy.<span class="cur">_</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stripe"></div>
+
+  <div class="win" id="under">
+    <div class="bar"><span>todo.txt</span><span><span class="hearts"><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <p><b>UNDER CONSTRUCTION:</b> a list of my favorite blocks, a coffee diary, and a page of bookmarks. The guestbook is coming soon. (It is a promise.)</p>
+      <div class="check"></div>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">Best viewed at 800x600</span>
+    <span class="badge">Made with Notepad</span>
+    <span class="badge">NO SOUND / NO FRAMES</span>
+    <span class="badge">visitor <span class="counter">004217</span></span>
+  </div>
+
+  <footer>
+    <p>&copy; 1997 Black Coffee Skyline &bull; https://geocities.restorativland.org/SoHo/Coffeehouse/</p>
+    <p>Last updated: December 1997</p>
+  </footer>
+</div>
+<script>
+(function () {
+  var h = document.getElementById('ttl'), c = document.getElementById('ttlc');
+  if (!c.getContext) return;
+  var lines = ['Black Coffee Skyline'], fs = 30, lh = 28;
+  var font = '900 ' + fs + 'px "Bodoni 72","Bodoni MT",Didot,"Playfair Display",Georgia,serif';
+  var ctx = c.getContext('2d'); ctx.font = font;
+  var w = 0; lines.forEach(function (l) { w = Math.max(w, Math.ceil(ctx.measureText(l).width)); });
+  c.width = w + 6; c.height = lh * lines.length + 10;
+  ctx = c.getContext('2d'); ctx.font = font; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#0a22ff';
+  lines.forEach(function (l, i) { ctx.fillText(l, 2, lh * (i + 1) - 2); });
+  var d = ctx.getImageData(0, 0, c.width, c.height), p = d.data; // hard pixel edges, no anti-aliasing
+  for (var i = 0; i < p.length; i += 4) { var on = p[i + 3] > 110; p[i] = 10; p[i + 1] = 34; p[i + 2] = 255; p[i + 3] = on ? 255 : 0; }
+  ctx.putImageData(d, 0, 0);
+  c.style.width = Math.min(c.width * 3, 420) + 'px';
+  h.className = 'px';
+})();
+</script>
+</body>
+</html>

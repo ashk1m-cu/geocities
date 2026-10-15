@@ -88,8 +88,77 @@
   .counter { background: var(--blue); color: var(--yel); padding: 0 6px; letter-spacing: .2em; }
   footer { text-align: center; font-size: .75rem; margin-top: 24px; word-break: break-all; }
 
+
+  /* ---- interactive bits ---- */
+  html { scroll-behavior: smooth; }
+  .wrap { padding-bottom: 90px; }
+  .bar { cursor: pointer; user-select: none; }
+  .bar .x { cursor: pointer; padding: 0 4px; border: 1px solid transparent; }
+  .bar .x:hover, .bar .x:focus-visible { background: var(--hot); border-color: #fff; outline: none; }
+  .win.min { display: none; }
+  .win.fold .body { display: none; }
+  .win.boot { animation: boot .7s steps(6); }
+  @keyframes boot { 0%,100% { filter: none; } 30% { filter: invert(1) hue-rotate(180deg); } 60% { filter: brightness(1.6); } }
+  .spark, .heart { cursor: pointer; transition: transform .12s steps(3); }
+  .spark:hover, .heart:hover { transform: scale(1.3) rotate(8deg); }
+  .pop { animation: pop .6s steps(6) forwards; }
+  @keyframes pop { to { transform: translateY(-40px) scale(1.6); opacity: 0; } }
+  .score { margin-top: 12px; font-size: .8rem; }
+  .score b { color: var(--hot); }
+  details.more { margin-top: 8px; font-size: .8rem; border-top: 2px dotted var(--peri); padding-top: 6px; }
+  details.more summary { cursor: pointer; font-weight: 700; color: var(--blue); list-style: none; }
+  details.more summary::before { content: "[+] "; } details.more[open] summary::before { content: "[-] "; }
+  details.more p { margin-top: 6px; }
+  .tile:hover { transform: translate(-2px,-2px); box-shadow: inset 0 0 0 3px var(--mist), 4px 4px 0 var(--blue); }
+  .btn { font: 700 .85rem "Courier New", monospace; color: var(--deep); background: #fff; border: 3px solid var(--blue); padding: 5px 12px; cursor: pointer; box-shadow: inset 0 0 0 2px var(--mist); }
+  .btn:hover, .btn:focus-visible { background: var(--yel); outline: none; }
+  .btn[aria-pressed="true"], .btn.on { background: var(--blue); color: var(--yel); }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .out { margin-top: 10px; min-height: 72px; display: flex; gap: 14px; align-items: center; }
+  .out img { width: 64px; height: 64px; image-rendering: pixelated; flex: none; }
+  .out b { color: var(--hot); }
+  .meter { display: flex; gap: 4px; margin: 10px 0; }
+  .meter i { flex: 1; height: 18px; border: 2px solid var(--blue); background: #fff; }
+  .meter i.f { background: var(--blue); }
+  .meter i.f.hot { background: var(--hot); }
+  .big { font: 900 2.4rem Georgia, serif; color: var(--blue); min-width: 1.6em; text-align: center; }
+  .shots { display: flex; align-items: center; gap: 12px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  ol.top { margin: 12px 0 0; padding-left: 1.8em; }
+  ol.top li { padding: 3px 0; border-bottom: 2px dotted var(--peri); }
+  ol.top li::marker { font-weight: 700; color: var(--hot); }
+  .diary details { background: #fff; border: 2px solid var(--blue); margin: 8px 0; padding: 6px 10px; }
+  .diary summary { cursor: pointer; font-weight: 700; color: var(--blue); }
+  .diary p { margin: 8px 0 4px; }
+  form.gb { display: grid; gap: 8px; margin-top: 10px; }
+  form.gb input, form.gb textarea { font: inherit; padding: 6px 8px; border: 3px solid var(--blue); background: #fff; color: var(--deep); width: 100%; }
+  form.gb input:focus, form.gb textarea:focus { outline: 3px solid var(--yel); }
+  .gbl { margin-top: 14px; display: grid; gap: 8px; }
+  .gbl div { background: #fff; border: 2px solid var(--blue); padding: 6px 10px; font-size: .85rem; word-break: break-word; }
+  .gbl div b { color: var(--hot); }
+  /* taskbar */
+  #dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; gap: 8px; align-items: center; padding: 6px 10px; background: var(--mist); border-top: 3px solid var(--blue); font-size: .78rem; box-shadow: 0 -3px 0 var(--mist), 0 -6px 0 var(--blue); }
+  #dock .tasks { display: flex; gap: 6px; flex: 1; overflow-x: auto; }
+  #dock .btn { padding: 2px 8px; font-size: .75rem; white-space: nowrap; }
+  #clock { background: var(--blue); color: var(--yel); padding: 3px 10px; letter-spacing: .12em; white-space: nowrap; border: 2px solid var(--deep); }
+  .hint { opacity: .7; font-size: .72rem; }
+  /* open-late (night) mode */
+  body.night { color: #e8ecff; background: linear-gradient(180deg, #0a1060 0, #131a8c 300px, #0a0f55 800px), #0a0f55; }
+  body.night::before { background-image: linear-gradient(rgba(140,156,255,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(140,156,255,.22) 1px, transparent 1px); }
+  body.night a, body.night a:visited { color: var(--yel); }
+  body.night a:hover { background: var(--yel); color: var(--deep); }
+  body.night h1 { color: #8cf; } body.night .agenda h2, body.night .win h2 { color: var(--yel); }
+  body.night .win, body.night .body { background: #151d96; } body.night .body { background: linear-gradient(180deg, #1b24ad, #121a8a); }
+  body.night .tile { background: #26329f; } body.night .tile .no, body.night .tile h3 { color: var(--yel); }
+  body.night .tile .pic { background: radial-gradient(circle, rgba(255,255,255,.25) 1px, transparent 1.5px) 0 0/8px 8px, linear-gradient(180deg, #e9edff, #cdd6ff); }
+  body.night .url b, body.night .badge, body.night .gbl div, body.night .diary details, body.night form.gb input, body.night form.gb textarea { background: #0d1370; color: #e8ecff; }
+  body.night .btn { background: #0d1370; color: #e8ecff; } body.night .btn:hover { background: var(--yel); color: var(--deep); } body.night .btn[aria-pressed="true"], body.night .btn.on { background: var(--yel); color: var(--deep); }
+  body.night .pill, body.night .start { color: #e8ecff; background: rgba(13,19,112,.8); }
+  body.night .diary summary, body.night details.more summary { color: var(--yel); }
+  body.night #dock { background: #0a0f55; }
+
   @media (max-width: 640px) { .agenda { grid-template-columns: 1fr; } .trio { grid-template-columns: 1fr; } .heart, .spark.hide-s { display: none; } }
-  @media (prefers-reduced-motion: reduce) { .crt .cur { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .crt .cur, .win.boot, .pop { animation: none; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
@@ -114,7 +183,8 @@
       <img class="heart" style="left:7%;top:34%" src="images/heart.svg" alt="">
       <img class="heart" style="right:7%;top:62%" src="images/heart.svg" alt="">
       <img class="mon" src="images/monitor.svg" alt="A pink retro computer monitor with a blue screen that says NYC plus JAVA">
-      <a class="start" href="#menu">Press Start!</a>
+      <a class="start" href="#menu" id="start">Press Start!</a>
+      <div class="score">hearts collected: <b id="score">0</b> &nbsp;<span class="hint">(click the hearts and sparkles!)</span></div>
     </div>
   </div>
 
@@ -128,12 +198,18 @@
           <li><img src="images/icon-soho.svg" alt=""><a href="#nyc">New York City</a></li>
           <li><img src="images/icon-mug.svg" alt=""><a href="#coffee">Coffee</a></li>
           <li><img src="images/icon-bean.svg" alt=""><a href="#meet">Where they meet</a></li>
+          <li><img src="images/icon-espresso.svg" alt=""><a href="#mood">Mood picker</a></li>
+          <li><img src="images/icon-token.svg" alt=""><a href="#counter">Espresso counter</a></li>
+          <li><img src="images/icon-soho.svg" alt=""><a href="#top5">Top 5 lists</a></li>
+          <li><img src="images/icon-bean.svg" alt=""><a href="#diary">Coffee diary</a></li>
+          <li><img src="images/icon-mug.svg" alt=""><a href="#guestbook">Guestbook</a></li>
           <li><img src="images/icon-grid.svg" alt=""><a href="#under">Under construction</a></li>
         </ol>
       </div>
       <div>
         <p>Hi!! Welcome to my little corner of the Web. I just got my own space in SoHo and I am filling it with the two things I think about most: <b>new york city</b> and <b>coffee</b>.</p>
         <p>I type this at 2am on a 28.8 modem, so please be patient with me. Hand-coded in Notepad. No frames, no Java, no sound.</p>
+        <p class="hint">Tip: click a window's title bar to fold it up, click the X to park it in the taskbar at the bottom, and flip on OPEN LATE down there for night mode.</p>
       </div>
     </div>
   </div>
@@ -144,9 +220,9 @@
     <div class="body">
       <h2>01 &nbsp; NYC</h2>
       <div class="trio">
-        <div class="tile"><div class="no">01</div><div class="pic"><img src="images/icon-grid.svg" alt=""></div><h3>The Grid</h3><p>Walk uptown, walk crosstown, and you never get lost. Mostly.</p><small>Last modified: 1997-11-02</small></div>
-        <div class="tile"><div class="no">02</div><div class="pic"><img src="images/icon-soho.svg" alt=""></div><h3>Cast-Iron Streets</h3><p>Old warehouses, big windows, and fire escapes that look great in black and white.</p><small>Last modified: 1997-10-19</small></div>
-        <div class="tile"><div class="no">03</div><div class="pic"><img src="images/icon-token.svg" alt=""></div><h3>The Subway</h3><p>Token in, turnstile clunk, and the whole city opens up for a buck and a half.</p><small>Last modified: 1997-09-30</small></div>
+        <div class="tile"><div class="no">01</div><div class="pic"><img src="images/icon-grid.svg" alt=""></div><h3>The Grid</h3><p>Walk uptown, walk crosstown, and you never get lost. Mostly.</p><details class="more"><summary>read more</summary><p>In 1811 the city planners drew straight avenues and streets across the whole island. Avenues run long ways, streets run short ways. Easy to remember, hard to stop walking.</p></details><small>Last modified: 1997-11-02</small></div>
+        <div class="tile"><div class="no">02</div><div class="pic"><img src="images/icon-soho.svg" alt=""></div><h3>Cast-Iron Streets</h3><p>Old warehouses, big windows, and fire escapes that look great in black and white.</p><details class="more"><summary>read more</summary><p>SoHo is short for SOuth of HOuston Street. The old iron-front buildings have tall windows and fancy columns, and on a bright day the whole block looks like a drawing.</p></details><small>Last modified: 1997-10-19</small></div>
+        <div class="tile"><div class="no">03</div><div class="pic"><img src="images/icon-token.svg" alt=""></div><h3>The Subway</h3><p>Token in, turnstile clunk, and the whole city opens up for a buck and a half.</p><details class="more"><summary>read more</summary><p>A token is $1.50 right now, and the MetroCard is starting to take over. The best seat is the very front window of the first car, if nobody beat you to it.</p></details><small>Last modified: 1997-09-30</small></div>
       </div>
     </div>
   </div>
@@ -157,10 +233,54 @@
     <div class="body">
       <h2>02 &nbsp; JAVA</h2>
       <div class="trio">
-        <div class="tile"><div class="no">01</div><div class="pic"><img src="images/icon-mug.svg" alt=""></div><h3>My Perfect Cup</h3><p>A little too hot, in a thick white mug. Bonus points if the counter guy remembers me.</p><small>Last modified: 1997-11-14</small></div>
-        <div class="tile"><div class="no">02</div><div class="pic"><img src="images/icon-espresso.svg" alt=""></div><h3>Espresso Math</h3><p>One shot is a thought. Two shots is a plan. Three is a website.</p><small>Last modified: 1997-10-27</small></div>
-        <div class="tile"><div class="no">03</div><div class="pic"><img src="images/icon-bean.svg" alt=""></div><h3>Bean Notes</h3><p>Chocolate, burnt toast, a little smoke. I am still learning the words.</p><small>Last modified: 1997-12-01</small></div>
+        <div class="tile"><div class="no">01</div><div class="pic"><img src="images/icon-mug.svg" alt=""></div><h3>My Perfect Cup</h3><p>A little too hot, in a thick white mug. Bonus points if the counter guy remembers me.</p><details class="more"><summary>read more</summary><p>Order: large, black, no sugar. Pour it into a thick white mug, wait two minutes, then drink it before it gets cold anyway.</p></details><small>Last modified: 1997-11-14</small></div>
+        <div class="tile"><div class="no">02</div><div class="pic"><img src="images/icon-espresso.svg" alt=""></div><h3>Espresso Math</h3><p>One shot is a thought. Two shots is a plan. Three is a website.</p><details class="more"><summary>read more</summary><p>Rule of thumb: I write one page per shot. Scroll down to the Espresso Counter and see how far you can push it.</p></details><small>Last modified: 1997-10-27</small></div>
+        <div class="tile"><div class="no">03</div><div class="pic"><img src="images/icon-bean.svg" alt=""></div><h3>Bean Notes</h3><p>Chocolate, burnt toast, a little smoke. I am still learning the words.</p><details class="more"><summary>read more</summary><p>Dark roast tastes like chocolate and toast. Lighter roast tastes like fruit, which still surprises me. Ask the counter person what is fresh today.</p></details><small>Last modified: 1997-12-01</small></div>
       </div>
+    </div>
+  </div>
+
+  <!-- MOOD -->
+  <div class="win" id="mood">
+    <div class="bar"><span>mood_picker.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <h2>03 &nbsp; What is your mood?</h2>
+      <p>Pick one and I will tell you what to order.</p>
+      <div class="btnrow" id="moods"></div>
+      <div class="out" id="moodout"><img src="images/icon-mug.svg" alt=""><div>Waiting for you to choose...</div></div>
+    </div>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="win" id="counter">
+    <div class="bar"><span>espresso_counter.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <h2>04 &nbsp; Espresso Counter</h2>
+      <p>How many shots deep are you today?</p>
+      <div class="shots"><button class="btn" id="minus" aria-label="fewer shots">&minus;</button><div class="big" id="shots">1</div><button class="btn" id="plus" aria-label="more shots">+</button></div>
+      <div class="meter" id="meter" aria-hidden="true"></div>
+      <div class="out" id="shotout"></div>
+    </div>
+  </div>
+
+  <!-- TOP 5 -->
+  <div class="win" id="top5">
+    <div class="bar"><span>top5.txt</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <h2>05 &nbsp; Top 5</h2>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <ol class="top" id="toplist"></ol>
+    </div>
+  </div>
+
+  <!-- DIARY -->
+  <div class="win" id="diary">
+    <div class="bar"><span>coffee_diary.txt</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body diary">
+      <h2>06 &nbsp; Coffee Diary</h2>
+      <details open><summary>Oct 3 - the place on the corner</summary><p>Found a coffeehouse two blocks from my stairs. Mismatched chairs, a chalkboard menu, and a cat who owns the radiator. I got a large black and stayed three hours. Nobody minded.</p></details>
+      <details><summary>Nov 11 - rain</summary><p>It rained sideways all afternoon so I held the door for six people with soggy umbrellas and then took the window seat. Best part of the week. The glass was fogged and the taxis were just yellow smears.</p></details>
+      <details><summary>Dec 1 - espresso experiments</summary><p>Tried three shots to finish this page. Typed so fast the keys were smoking. Do not recommend. Do recommend the biscotti.</p></details>
     </div>
   </div>
 
@@ -178,12 +298,26 @@
     </div>
   </div>
 
+  <!-- GUESTBOOK -->
+  <div class="win" id="guestbook">
+    <div class="bar"><span>guestbook.exe</span><span><span class="hearts"><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
+    <div class="body">
+      <h2>07 &nbsp; Sign my Guestbook!</h2>
+      <form class="gb" id="gbform">
+        <label>Your name<input id="gbname" maxlength="24" required autocomplete="off"></label>
+        <label>Say something nice<textarea id="gbmsg" maxlength="140" rows="3" required></textarea></label>
+        <div><button class="btn" type="submit">Sign!</button> <span class="hint">entries are saved in your own browser</span></div>
+      </form>
+      <div class="gbl" id="gblist"></div>
+    </div>
+  </div>
+
   <div class="stripe"></div>
 
   <div class="win" id="under">
     <div class="bar"><span>todo.txt</span><span><span class="hearts"><img src="images/heart.svg" alt=""></span><span class="x">X</span></span></div>
     <div class="body">
-      <p><b>UNDER CONSTRUCTION:</b> a list of my favorite blocks, a coffee diary, and a page of bookmarks. The guestbook is coming soon. (It is a promise.)</p>
+      <p><b>UNDER CONSTRUCTION:</b> a map of my favorite blocks, a page of bookmarks, and a photo page once I borrow a scanner. (That is a promise.)</p>
       <div class="check"></div>
     </div>
   </div>
@@ -192,7 +326,7 @@
     <span class="badge">Best viewed at 800x600</span>
     <span class="badge">Made with Notepad</span>
     <span class="badge">NO SOUND / NO FRAMES</span>
-    <span class="badge">visitor <span class="counter">004217</span></span>
+    <span class="badge">visitor <span class="counter" id="hits">004217</span></span>
   </div>
 
   <footer>
@@ -200,6 +334,133 @@
     <p>Last updated: December 1997</p>
   </footer>
 </div>
+<div id="dock"><div class="tasks" id="tasks"></div><button class="btn" id="night" aria-pressed="false">OPEN LATE</button><div id="clock" title="New York time">NYC --:--</div></div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+
+  /* windows: fold on title click, park in taskbar on X */
+  var tasks = $('tasks');
+  Array.prototype.forEach.call(document.querySelectorAll('.win'), function (w) {
+    var bar = w.querySelector('.bar'), x = w.querySelector('.x'), name = bar.firstElementChild.textContent;
+    x.setAttribute('role', 'button'); x.setAttribute('tabindex', '0'); x.setAttribute('aria-label', 'Minimize ' + name);
+    bar.addEventListener('click', function (e) { if (e.target === x) return; w.classList.toggle('fold'); });
+    function park(e) {
+      if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault(); e.stopPropagation();
+      w.classList.add('min');
+      var b = document.createElement('button'); b.className = 'btn'; b.textContent = name;
+      b.onclick = function () { w.classList.remove('min'); b.remove(); w.scrollIntoView({ block: 'center' }); };
+      tasks.appendChild(b);
+    }
+    x.addEventListener('click', park); x.addEventListener('keydown', park);
+  });
+
+  /* press start + collectible hearts */
+  var score = 0;
+  $('start').addEventListener('click', function () {
+    var m = $('menu'); m.classList.remove('boot'); void m.offsetWidth; m.classList.add('boot');
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.hero .heart, .hero .spark'), function (el) {
+    el.addEventListener('click', function () {
+      score += el.classList.contains('heart') ? 5 : 1; $('score').textContent = score;
+      el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+      setTimeout(function () { el.classList.remove('pop'); }, 650);
+    });
+  });
+
+  /* mood picker */
+  var moods = [
+    ['Rainy day', 'icon-mug', 'Hot drip coffee, black.', 'Take the window seat and watch the umbrellas go by.'],
+    ['Deadline', 'icon-espresso', 'A double espresso, standing up.', 'Drink it fast, then write faster.'],
+    ['First date', 'icon-bean', 'Two small cappuccinos and one shared biscotti.', 'Sit at the little round table. It forces you to lean in.'],
+    ['3 AM', 'icon-token', 'A large black, and decaf if you are being honest.', 'Find the one place with the lights still on.'],
+    ['Snow day', 'icon-soho', 'A mocha with extra whipped cream.', 'Wear two pairs of socks. Walk slowly.']];
+  var mr = $('moods');
+  moods.forEach(function (m, i) {
+    var b = document.createElement('button'); b.className = 'btn'; b.textContent = m[0]; b.setAttribute('aria-pressed', 'false');
+    b.onclick = function () {
+      Array.prototype.forEach.call(mr.children, function (c) { c.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      var o = $('moodout'); o.textContent = '';
+      var img = document.createElement('img'); img.src = 'images/' + m[1] + '.svg'; img.alt = '';
+      var d = document.createElement('div'), t = document.createElement('b'); t.textContent = 'Order: ';
+      d.appendChild(t); d.appendChild(document.createTextNode(m[2] + ' ' + m[3]));
+      o.appendChild(img); o.appendChild(d);
+    };
+    mr.appendChild(b);
+  });
+
+  /* espresso counter */
+  var shots = 1, msgs = ['Decaf?? Bold.', 'One shot is a thought.', 'Two shots is a plan.', 'Three shots is a website.',
+    'Four. The pigeons are starting to make sense.', 'Five. Please drink some water.', 'Six. Call a friend, you are vibrating.',
+    'Seven. You can hear colors.', 'Eight. Sit down. Breathe. Eat the biscotti.'];
+  function drawShots() {
+    $('shots').textContent = shots;
+    var m = $('meter'); m.textContent = '';
+    for (var i = 0; i < 8; i++) { var e = document.createElement('i'); if (i < shots) e.className = 'f' + (i >= 4 ? ' hot' : ''); m.appendChild(e); }
+    var o = $('shotout'); o.textContent = '';
+    var img = document.createElement('img'); img.src = 'images/icon-espresso.svg'; img.alt = '';
+    var d = document.createElement('div'); d.textContent = msgs[shots];
+    o.appendChild(img); o.appendChild(d);
+  }
+  $('plus').onclick = function () { if (shots < 8) { shots++; drawShots(); } };
+  $('minus').onclick = function () { if (shots > 0) { shots--; drawShots(); } };
+  drawShots();
+
+  /* top 5 tabs */
+  var lists = {
+    'Coffee orders': ['A large black drip', 'A double espresso', 'A cappuccino with extra foam', 'Iced coffee in July', 'A mocha, when nobody is looking'],
+    'City sounds': ['Subway doors dinging', 'Taxi horns at 5 PM', 'Steam hissing out of the street', 'Radiators clanking awake', 'A saxophone in the station'],
+    'Coffeehouse rules': ['Never steal the corner table', 'Tip the counter person', 'Bring a notebook', 'Say hi to the regulars', 'Leave the wobbly table wobbly']};
+  var tabs = $('tabs');
+  Object.keys(lists).forEach(function (k, i) {
+    var b = document.createElement('button'); b.className = 'btn'; b.textContent = k; b.setAttribute('role', 'tab');
+    b.onclick = function () {
+      Array.prototype.forEach.call(tabs.children, function (c) { c.setAttribute('aria-pressed', 'false'); c.setAttribute('aria-selected', 'false'); });
+      b.setAttribute('aria-pressed', 'true'); b.setAttribute('aria-selected', 'true');
+      var ol = $('toplist'); ol.textContent = '';
+      lists[k].forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ol.appendChild(li); });
+    };
+    tabs.appendChild(b); if (i === 0) b.click();
+  });
+
+  /* guestbook (kept in this browser only) */
+  var KEY = 'bcs-guestbook', entries = [];
+  try { entries = JSON.parse(store.get(KEY) || '[]'); } catch (e) { entries = []; }
+  function drawGb() {
+    var l = $('gblist'); l.textContent = '';
+    if (!entries.length) { var p = document.createElement('div'); p.textContent = 'No signatures yet. Be the first!'; l.appendChild(p); return; }
+    entries.forEach(function (e) {
+      var d = document.createElement('div'), b = document.createElement('b');
+      b.textContent = e.n; d.appendChild(b); d.appendChild(document.createTextNode(': ' + e.m)); l.appendChild(d);
+    });
+  }
+  $('gbform').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var n = $('gbname').value.trim(), m = $('gbmsg').value.trim(); if (!n || !m) return;
+    entries.unshift({ n: n, m: m }); entries = entries.slice(0, 50); store.set(KEY, JSON.stringify(entries));
+    $('gbform').reset(); drawGb();
+  });
+  drawGb();
+
+  /* visitor counter */
+  var hits = parseInt(store.get('bcs-hits') || '4217', 10) + 1; store.set('bcs-hits', String(hits));
+  $('hits').textContent = ('000000' + hits).slice(-6);
+
+  /* NYC clock + night mode */
+  function tick() {
+    try { $('clock').textContent = 'NYC ' + new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }); } catch (e) {}
+  }
+  tick(); setInterval(tick, 20000);
+  var nb = $('night');
+  function night(on) { document.body.classList.toggle('night', on); nb.setAttribute('aria-pressed', String(on)); nb.classList.toggle('on', on); store.set('bcs-night', on ? '1' : '0'); }
+  nb.onclick = function () { night(!document.body.classList.contains('night')); };
+  if (store.get('bcs-night') === '1') night(true);
+})();
+</script>
 <script>
 (function () {
   var h = document.getElementById('ttl'), c = document.getElementById('ttlc');
